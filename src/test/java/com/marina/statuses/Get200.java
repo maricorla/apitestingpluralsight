@@ -14,23 +14,8 @@ import org.testng.annotations.Test;
 import java.io.Closeable;
 import java.io.IOException;
 
-public class Get200 {
+public class Get200 extends BaseClass {
 
-    public static final String  BASE_ENDPOINT = "https://api.github.com";
-    CloseableHttpClient client;
-    CloseableHttpResponse response;
-
-    @BeforeMethod
-    public void setup(){
-        client = HttpClientBuilder.create().build();
-    }
-
-    @AfterMethod
-    public void closeResources() throws IOException {
-        client.close();
-        response.close();
-
-    }
 
     @Test
     public void baseUrlReturn200() throws IOException {
@@ -55,6 +40,6 @@ public class Get200 {
         response = client.execute(get);
         int actualStatus = response.getStatusLine().getStatusCode();
         Assert.assertEquals(actualStatus, 200);
-        
+
     }
 }
