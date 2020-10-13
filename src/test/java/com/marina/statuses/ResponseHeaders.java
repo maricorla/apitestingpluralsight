@@ -4,6 +4,7 @@ import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
+import org.apache.http.util.Asserts;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,6 +32,15 @@ public class ResponseHeaders extends BaseClass {
         response = client.execute(get);
         String headerValue = com.marina.utils.ResponseUtils.getHeader(response, "Server");
         Assert.assertEquals(headerValue, "GitHub.com");
+    }
+
+    @Test
+    public  void xRateLimitIsSixty() throws IOException {
+        HttpGet get = new HttpGet(BASE_ENDPOINT);
+        response = client.execute(get);
+
+        String limitVal = com.marina.utils.ResponseUtils.getHeaderJava8Way(response,"X-RateLimit-Limit");
+        Assert.assertEquals(limitVal, "60");
     }
 
 
