@@ -3,6 +3,7 @@ package com.marina.statuses;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -22,6 +23,11 @@ public class BaseClass {
     public void closeResources() throws IOException {
         client.close();
         response.close();
+
+    }
+
+    public Object getValueFor(JSONObject jsonobject, String key){
+        return jsonobject.get(key);
 
     }
 

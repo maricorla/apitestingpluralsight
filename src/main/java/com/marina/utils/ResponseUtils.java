@@ -12,7 +12,6 @@ import java.util.List;
 
 public class ResponseUtils {
 
-
     public static String getHeader(CloseableHttpResponse response, String headerName) {
         //get all headers
         Header[] headers = response.getAllHeaders();
@@ -42,5 +41,12 @@ public class ResponseUtils {
         return matchedHeader.getValue();
     }
 
-    
+    public static boolean headerIsPresent(CloseableHttpResponse response, String headerName){
+        List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());
+       return httpHeaders.stream()
+                .anyMatch(header ->header.getName().equalsIgnoreCase(headerName));
+
+    }
+
+
 }

@@ -30,7 +30,7 @@ public class Get200 extends BaseClass {
     public void rateLimitReturn200() throws IOException {
         HttpGet get = new HttpGet( BASE_ENDPOINT+ "/rate_limit");
          response = client.execute(get);
-        int actualStatus = response.getStatusLine().getStatusCode();
+         int actualStatus = response.getStatusLine().getStatusCode();
         Assert.assertEquals(actualStatus, 200);
 
     }

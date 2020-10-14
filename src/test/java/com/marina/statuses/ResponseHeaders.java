@@ -1,5 +1,6 @@
 package com.marina.statuses;
 
+import com.marina.utils.ResponseUtils;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -41,8 +42,16 @@ public class ResponseHeaders extends BaseClass {
 
         String limitVal = com.marina.utils.ResponseUtils.getHeaderJava8Way(response,"X-RateLimit-Limit");
         Assert.assertEquals(limitVal, "60");
+
     }
 
+    @Test
+    public void eTagIsPresent() throws IOException {
+        HttpGet get = new HttpGet(BASE_ENDPOINT);
+        response = client.execute(get);
+        boolean tagIsPresent = ResponseUtils.headerIsPresent(response, "ETag");
+        Assert.assertTrue(tagIsPresent);
+    }
 
 
 }
