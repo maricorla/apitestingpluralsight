@@ -18,7 +18,7 @@ public class BodyTestWithSimpleMap extends BaseClass {
         response = client.execute(get);
 //json get method works when the structure is line simple.
 // If there is nest(один в другом ) то этот вид не подходит
-        
+
         String jsonBody = EntityUtils.toString(response.getEntity());
        JSONObject jsonObject = new JSONObject(jsonBody);
 
