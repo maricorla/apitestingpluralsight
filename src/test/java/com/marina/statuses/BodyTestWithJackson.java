@@ -1,16 +1,13 @@
 package com.marina.statuses;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marina.utils.User;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+
+import static com.marina.utils.ResponseUtils.unmarshall;
 
 public class BodyTestWithJackson extends BaseClass {
 
@@ -25,11 +22,15 @@ public class BodyTestWithJackson extends BaseClass {
         Assert.assertEquals(user.getLogin(), "maricorla");
     }
 
-    private User unmarshall(CloseableHttpResponse response, Class<User> clazz) throws IOException {
+    @Test
+    public void returnCorrectId() throws IOException {
 
-        String jsonBody = EntityUtils.toString(response.getEntity());
-        return new ObjectMapper()
-               .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false)
-                .readValue(jsonBody, clazz);
+        HttpGet get = new HttpGet(BASE_ENDPOINT + "/users/maricorla");
+        response = client.execute(get);
+
+        User user =  unmarshall(response, User.class);
+        Assert.assertEquals(user.getId(), 55948662);
     }
+
+
 }
